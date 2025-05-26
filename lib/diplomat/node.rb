@@ -12,7 +12,7 @@ module Diplomat
     def get(key, options = {})
       custom_params = options[:dc] ? use_named_parameter('dc', options[:dc]) : nil
       ret = send_get_request(@conn, ["/v1/catalog/node/#{key}"], options, custom_params)
-      OpenStruct.new JSON.parse(ret.body)
+      ::OpenStruct.new JSON.parse(ret.body)
     end
 
     # Get all the nodes
@@ -21,7 +21,7 @@ module Diplomat
     def get_all(options = {})
       custom_params = options[:dc] ? use_named_parameter('dc', options[:dc]) : nil
       ret = send_get_request(@conn, ['/v1/catalog/nodes'], options, custom_params)
-      JSON.parse(ret.body).map { |service| OpenStruct.new service }
+      JSON.parse(ret.body).map { |service| ::OpenStruct.new service }
     end
 
     # Register a node

@@ -309,7 +309,7 @@ module Diplomat
     def transaction_return(raw_return, options)
       decoded_return =
         options[:decode_values] == false ? raw_return : decode_transaction(raw_return)
-      OpenStruct.new decoded_return
+      ::OpenStruct.new decoded_return
     end
 
     def decode_transaction(transaction)

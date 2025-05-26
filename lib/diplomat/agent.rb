@@ -15,7 +15,7 @@ module Diplomat
     # @return [OpenStruct] all data associated with the node
     def self(options = {})
       ret = send_get_request(@conn, ['/v1/agent/self'], options)
-      JSON.parse(ret.body).tap { |node| OpenStruct.new node }
+      JSON.parse(ret.body).tap { |node| ::OpenStruct.new node }
     end
 
     # Get local agent checks
@@ -23,7 +23,7 @@ module Diplomat
     # @return [OpenStruct] all agent checks
     def checks(options = {})
       ret = send_get_request(@conn, ['/v1/agent/checks'], options)
-      JSON.parse(ret.body).tap { |node| OpenStruct.new node }
+      JSON.parse(ret.body).tap { |node| ::OpenStruct.new node }
     end
 
     # Get local agent services
@@ -31,7 +31,7 @@ module Diplomat
     # @return [OpenStruct] all agent services
     def services(options = {})
       ret = send_get_request(@conn, ['/v1/agent/services'], options)
-      JSON.parse(ret.body).tap { |node| OpenStruct.new node }
+      JSON.parse(ret.body).tap { |node| ::OpenStruct.new node }
     end
 
     # Get cluster members (as seen by the agent)
@@ -39,7 +39,7 @@ module Diplomat
     # @return [OpenStruct] all members
     def members(options = {})
       ret = send_get_request(@conn, ['/v1/agent/members'], options)
-      JSON.parse(ret.body).map { |node| OpenStruct.new node }
+      JSON.parse(ret.body).map { |node| ::OpenStruct.new node }
     end
   end
 end

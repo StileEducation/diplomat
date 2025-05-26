@@ -16,7 +16,7 @@ module Diplomat
       custom_params << use_named_parameter('filter', options[:filter]) if options[:filter]
 
       ret = send_get_request(@conn, ["/v1/health/node/#{n}"], options, custom_params)
-      JSON.parse(ret.body).map { |node| OpenStruct.new node }
+      JSON.parse(ret.body).map { |node| ::OpenStruct.new node }
     end
 
     # Get service checks
@@ -29,7 +29,7 @@ module Diplomat
       custom_params << use_named_parameter('filter', options[:filter]) if options[:filter]
 
       ret = send_get_request(@conn, ["/v1/health/checks/#{s}"], options, custom_params)
-      JSON.parse(ret.body).map { |check| OpenStruct.new check }
+      JSON.parse(ret.body).map { |check| ::OpenStruct.new check }
     end
 
     # Get service health
@@ -55,7 +55,7 @@ module Diplomat
         meta[:lastcontact] = ret.headers['x-consul-lastcontact'] if ret.headers['x-consul-lastcontact']
       end
 
-      JSON.parse(ret.body).map { |service| OpenStruct.new service }
+      JSON.parse(ret.body).map { |service| ::OpenStruct.new service }
     end
 
     # rubocop:enable Metrics/PerceivedComplexity
@@ -71,7 +71,7 @@ module Diplomat
       custom_params << use_named_parameter('filter', options[:filter]) if options[:filter]
 
       ret = send_get_request(@conn, ["/v1/health/state/#{s}"], options, custom_params)
-      JSON.parse(ret.body).map { |status| OpenStruct.new status }
+      JSON.parse(ret.body).map { |status| ::OpenStruct.new status }
     end
 
     # Convenience method to get services in any state

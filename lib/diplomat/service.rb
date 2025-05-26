@@ -28,9 +28,9 @@ module Diplomat
       end
 
       if scope == :all
-        JSON.parse(ret.body).map { |service| OpenStruct.new service }
+        JSON.parse(ret.body).map { |service| ::OpenStruct.new service }
       else
-        OpenStruct.new JSON.parse(ret.body).first
+        ::OpenStruct.new JSON.parse(ret.body).first
       end
     end
     # rubocop:enable Metrics/PerceivedComplexity
@@ -41,7 +41,7 @@ module Diplomat
     def get_all(options = {})
       custom_params = options[:dc] ? use_named_parameter('dc', options[:dc]) : nil
       ret = send_get_request(@conn, ['/v1/catalog/services'], options, custom_params)
-      OpenStruct.new JSON.parse(ret.body)
+      ::OpenStruct.new JSON.parse(ret.body)
     end
 
     # Register a service

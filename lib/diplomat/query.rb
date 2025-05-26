@@ -12,7 +12,7 @@ module Diplomat
     def get(key, options = {})
       custom_params = options[:dc] ? use_named_parameter('dc', options[:dc]) : nil
       ret = send_get_request(@conn, ["/v1/query/#{key}"], options, custom_params)
-      JSON.parse(ret.body).map { |query| OpenStruct.new query }
+      JSON.parse(ret.body).map { |query| ::OpenStruct.new query }
     end
 
     # Get all prepared queries
@@ -21,7 +21,7 @@ module Diplomat
     def get_all(options = {})
       custom_params = options[:dc] ? use_named_parameter('dc', options[:dc]) : nil
       ret = send_get_request(@conn, ['/v1/query'], options, custom_params)
-      JSON.parse(ret.body).map { |query| OpenStruct.new query }
+      JSON.parse(ret.body).map { |query| ::OpenStruct.new query }
     end
 
     # Create a prepared query or prepared query template
@@ -72,7 +72,7 @@ module Diplomat
       custom_params << use_named_parameter('near', options[:near]) if options[:near]
       custom_params << use_named_parameter('limit', options[:limit]) if options[:limit]
       ret = send_get_request(@conn, ["/v1/query/#{key}/execute"], options, custom_params)
-      OpenStruct.new JSON.parse(ret.body)
+      ::OpenStruct.new JSON.parse(ret.body)
     end
     # rubocop:enable Metrics/PerceivedComplexity
 
@@ -83,7 +83,7 @@ module Diplomat
     def explain(key, options = {})
       custom_params = options[:dc] ? use_named_parameter('dc', options[:dc]) : nil
       ret = send_get_request(@conn, ["/v1/query/#{key}/explain"], options, custom_params)
-      OpenStruct.new JSON.parse(ret.body)
+      ::OpenStruct.new JSON.parse(ret.body)
     end
   end
 end

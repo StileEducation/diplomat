@@ -38,7 +38,7 @@ module Diplomat
       custom_params = []
       custom_params << use_named_parameter('dc', options[:dc]) if options[:dc]
       raw = send_get_request(@conn, ['/v1/session/list'], options, custom_params)
-      JSON.parse(raw.body).map { |session| OpenStruct.new session }
+      JSON.parse(raw.body).map { |session| ::OpenStruct.new session }
     end
 
     # Renew session
@@ -49,7 +49,7 @@ module Diplomat
       custom_params = []
       custom_params << use_named_parameter('dc', options[:dc]) if options[:dc]
       raw = send_put_request(@conn, ["/v1/session/renew/#{id}"], options, nil, custom_params)
-      JSON.parse(raw.body).map { |session| OpenStruct.new session }
+      JSON.parse(raw.body).map { |session| ::OpenStruct.new session }
     end
 
     # Session information
@@ -60,7 +60,7 @@ module Diplomat
       custom_params = []
       custom_params << use_named_parameter('dc', options[:dc]) if options[:dc]
       raw = send_get_request(@conn, ["/v1/session/info/#{id}"], options, custom_params)
-      JSON.parse(raw.body).map { |session| OpenStruct.new session }
+      JSON.parse(raw.body).map { |session| ::OpenStruct.new session }
     end
 
     # Session information for a given node
@@ -71,7 +71,7 @@ module Diplomat
       custom_params = []
       custom_params << use_named_parameter('dc', options[:dc]) if options[:dc]
       raw = send_get_request(@conn, ["/v1/session/node/#{name}"], options, custom_params)
-      JSON.parse(raw.body).map { |session| OpenStruct.new session }
+      JSON.parse(raw.body).map { |session| ::OpenStruct.new session }
     end
   end
 end
